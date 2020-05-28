@@ -1,0 +1,10 @@
+/*
+ * XenForo form_filler.min.js
+ * Copyright 2010-2019 XenForo Ltd.
+ * Released under the XenForo License Agreement: http://xenforo.com/license-agreement
+ */
+var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.findInternal=function(a,e,b){a instanceof String&&(a=String(a));for(var d=a.length,c=0;c<d;c++){var h=a[c];if(e.call(b,h,c,a))return{i:c,v:h}}return{i:-1,v:void 0}};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(a,e,b){a!=Array.prototype&&a!=Object.prototype&&(a[e]=b.value)};
+$jscomp.getGlobal=function(a){return"undefined"!=typeof window&&window===a?a:"undefined"!=typeof global&&null!=global?global:a};$jscomp.global=$jscomp.getGlobal(this);$jscomp.polyfill=function(a,e,b,d){if(e){b=$jscomp.global;a=a.split(".");for(d=0;d<a.length-1;d++){var c=a[d];c in b||(b[c]={});b=b[c]}a=a[a.length-1];d=b[a];e=e(d);e!=d&&null!=e&&$jscomp.defineProperty(b,a,{configurable:!0,writable:!0,value:e})}};
+$jscomp.polyfill("Array.prototype.find",function(a){return a?a:function(a,b){return $jscomp.findInternal(this,a,b).v}},"es6","es3");
+!function(a,e,b,d){XenForo._FormFiller={};XenForo.FormFillerControl=function(a){var b=a.closest("form"),c=b.data("FormFiller");c||(c=new XenForo.FormFiller(b),b.data("FormFiller",c));c.addControl(a)};XenForo.FormFiller=function(b){function c(c,d){if(XenForo.hasResponseError(d))return!1;a.each(d.formValues,function(a,c){a=b.find(a);a.length&&(a.is(":checkbox, :radio")?a.prop("checked",c).triggerHandler("click"):a.is("select, input, textarea")&&a.val(c))});c.focus()}function e(e){var f=a(e.target).data("choice")||
+a(e.target).val();if(""===f)return!0;d[f]?c(this,d[f]):(k=this,g=!0,l=XenForo.ajax(b.data("form-filler-url"),{choice:f},function(a,b){d[f]=a;c(k,a)}),l.always(function(){g=!1}))}var d={},k=null,l=null,g=!1;b.on("submit",function(a){g&&(a.preventDefault(),a.stopImmediatePropagation())});this.addControl=function(a){a.click(e)}};XenForo.register(".FormFiller","XenForo.FormFillerControl")}(jQuery,this,document);
